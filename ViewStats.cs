@@ -118,11 +118,26 @@ namespace NorthstarCollection_portal
             try
             {
                 string folderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CarImages");
-                string imagePath = System.IO.Path.Combine(folderPath, token + ".jpg");
 
-                if (System.IO.File.Exists(imagePath))
+                // Define potential paths for both jpg and png
+                string jpgPath = System.IO.Path.Combine(folderPath, token + ".jpg");
+                string pngPath = System.IO.Path.Combine(folderPath, token + ".png");
+
+                string finalPath = null;
+
+                // Check which file exists
+                if (System.IO.File.Exists(jpgPath))
                 {
-                    using (System.IO.FileStream fs = new System.IO.FileStream(imagePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                    finalPath = jpgPath;
+                }
+                else if (System.IO.File.Exists(pngPath))
+                {
+                    finalPath = pngPath;
+                }
+
+                if (finalPath != null)
+                {
+                    using (System.IO.FileStream fs = new System.IO.FileStream(finalPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
                     {
                         pbCarImage.Image = Image.FromStream(fs);
                     }
@@ -131,10 +146,13 @@ namespace NorthstarCollection_portal
                 }
                 else
                 {
-                    pbCarImage.Image = null;
+                    pbCarImage.Image = null; // No image found for this token
                 }
             }
-            catch { pbCarImage.Image = null; }
+            catch
+            {
+                pbCarImage.Image = null;
+            }
         }
 
         private void cmbSelectMonth_SelectedIndexChanged(object sender, EventArgs e) => LoadMonthlyStats();

@@ -372,7 +372,6 @@
             Name = "ManageFleet";
             Text = " ";
             Load += ManageFleet_Load;
-            Click += btnSelectImage_Click;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

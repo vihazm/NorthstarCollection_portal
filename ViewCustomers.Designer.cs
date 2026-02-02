@@ -113,7 +113,7 @@
             dgvHistoryTimeline.Location = new Point(202, 444);
             dgvHistoryTimeline.Name = "dgvHistoryTimeline";
             dgvHistoryTimeline.RowHeadersWidth = 51;
-            dgvHistoryTimeline.Size = new Size(1106, 124);
+            dgvHistoryTimeline.Size = new Size(679, 124);
             dgvHistoryTimeline.TabIndex = 40;
             // 
             // label4
@@ -194,9 +194,8 @@
             lblFavBrand.Font = new Font("Garamond", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblFavBrand.Location = new Point(847, 609);
             lblFavBrand.Name = "lblFavBrand";
-            lblFavBrand.Size = new Size(52, 21);
+            lblFavBrand.Size = new Size(0, 21);
             lblFavBrand.TabIndex = 52;
-            lblFavBrand.Text = "label7";
             // 
             // lblLoyalty
             // 
@@ -204,9 +203,8 @@
             lblLoyalty.Font = new Font("Garamond", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblLoyalty.Location = new Point(847, 659);
             lblLoyalty.Name = "lblLoyalty";
-            lblLoyalty.Size = new Size(55, 21);
+            lblLoyalty.Size = new Size(0, 21);
             lblLoyalty.TabIndex = 53;
-            lblLoyalty.Text = "label8";
             // 
             // ViewCustomers
             // 
