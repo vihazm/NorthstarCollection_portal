@@ -11,6 +11,8 @@ namespace NorthstarCollection_portal
         public Login()
         {
             InitializeComponent();
+            
+
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -27,7 +29,7 @@ namespace NorthstarCollection_portal
 
             try
             {
-                // Updated table name to tbl_users to match your database screenshot
+                
                 string query = "SELECT \"UserRole\" FROM tbl_users WHERE \"username\" = @user AND \"password\" = @pass";
 
                 NpgsqlParameter[] parameters = {
@@ -36,7 +38,7 @@ namespace NorthstarCollection_portal
                 };
 
                 DataTable result = DatabaseHelper.ExecuteQuery(query, parameters);
-
+                
                 if (result.Rows.Count > 0)
                 {
                     string role = result.Rows[0]["UserRole"].ToString();
@@ -47,13 +49,13 @@ namespace NorthstarCollection_portal
                     new NpgsqlParameter("@p", role)
 };
 
-                    // 1. Get the result as a DataTable
+                   
                     DataTable logResult = DatabaseHelper.ExecuteQuery(logQuery, logParams);
 
-                    // 2. Extract the ID from the first row and first column safely
+                    //update current log result
                     if (logResult != null && logResult.Rows.Count > 0)
                     {
-                        // This avoids the "System.IConvertible" casting error
+                        
                         SessionManager.CurrentLogId = Convert.ToInt32(logResult.Rows[0][0]);
                     }
 

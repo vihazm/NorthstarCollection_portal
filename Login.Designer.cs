@@ -1,4 +1,5 @@
-﻿namespace NorthstarCollection_portal
+﻿using Guna.UI2.WinForms;
+namespace NorthstarCollection_portal
 {
     partial class Login
     {
@@ -28,40 +29,42 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
-            txtUsername = new TextBox();
-            btnLogin = new Button();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            btnLogin = new Guna2Button();
             label1 = new Label();
             label2 = new Label();
             pictureBox2 = new PictureBox();
-            txtPassword = new TextBox();
-            panel1 = new Panel();
+            txtPassword = new Guna2TextBox();
+            panel1 = new Guna2Panel();
             label4 = new Label();
+            txtUsername = new Guna2TextBox();
             label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // txtUsername
-            // 
-            txtUsername.BorderStyle = BorderStyle.FixedSingle;
-            txtUsername.Location = new Point(137, 325);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(256, 27);
-            txtUsername.TabIndex = 0;
-            // 
             // btnLogin
             // 
-            btnLogin.BackColor = Color.Black;
-            btnLogin.FlatStyle = FlatStyle.Popup;
+            btnLogin.BorderRadius = 10;
+            btnLogin.CustomizableEdges = customizableEdges1;
+            btnLogin.FillColor = Color.FromArgb(201, 168, 106);
             btnLogin.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogin.ForeColor = Color.White;
+            btnLogin.ForeColor = Color.FromArgb(28, 28, 30);
+            btnLogin.HoverState.FillColor = Color.FromArgb(224, 192, 136);
             btnLogin.Location = new Point(206, 469);
             btnLogin.Name = "btnLogin";
+            btnLogin.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnLogin.Size = new Size(124, 53);
             btnLogin.TabIndex = 2;
             btnLogin.Text = "Proceed";
-            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // label1
@@ -98,25 +101,37 @@
             // 
             // txtPassword
             // 
-            txtPassword.BorderStyle = BorderStyle.FixedSingle;
+            txtPassword.BorderColor = Color.Black;
+            txtPassword.BorderRadius = 8;
+            txtPassword.CustomizableEdges = customizableEdges3;
+            txtPassword.DefaultText = "";
+            txtPassword.Font = new Font("Segoe UI", 9F);
             txtPassword.Location = new Point(137, 404);
+            txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(256, 27);
-            txtPassword.TabIndex = 7;
-            txtPassword.UseSystemPasswordChar = true;
+            txtPassword.PasswordChar = '•';
+            txtPassword.PlaceholderText = "Password";
+            txtPassword.SelectedText = "";
+            txtPassword.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            txtPassword.Size = new Size(256, 40);
+            txtPassword.TabIndex = 1;
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.Control;
+            panel1.BorderRadius = 10;
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtPassword);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnLogin);
             panel1.Controls.Add(txtUsername);
+            panel1.CustomizableEdges = customizableEdges7;
             panel1.Dock = DockStyle.Right;
+            panel1.ForeColor = SystemColors.ControlText;
             panel1.Location = new Point(811, 0);
             panel1.Name = "panel1";
+            panel1.ShadowDecoration.CustomizableEdges = customizableEdges8;
             panel1.Size = new Size(537, 721);
             panel1.TabIndex = 8;
             // 
@@ -130,6 +145,22 @@
             label4.Size = new Size(241, 90);
             label4.TabIndex = 8;
             label4.Text = "Login";
+            // 
+            // txtUsername
+            // 
+            txtUsername.BorderColor = Color.Black;
+            txtUsername.BorderRadius = 8;
+            txtUsername.CustomizableEdges = customizableEdges5;
+            txtUsername.DefaultText = "";
+            txtUsername.Font = new Font("Segoe UI", 9F);
+            txtUsername.Location = new Point(137, 325);
+            txtUsername.Margin = new Padding(3, 4, 3, 4);
+            txtUsername.Name = "txtUsername";
+            txtUsername.PlaceholderText = "Username";
+            txtUsername.SelectedText = "";
+            txtUsername.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            txtUsername.Size = new Size(256, 40);
+            txtUsername.TabIndex = 0;
             // 
             // label5
             // 
@@ -163,14 +194,14 @@
 
         #endregion
 
-        private TextBox txtUsername;
-        private Button btnLogin;
+        private Guna2Button btnLogin;
         private Label label1;
         private Label label2;
         private PictureBox pictureBox2;
-        private TextBox txtPassword;
-        private Panel panel1;
+        private Guna2TextBox txtPassword;
+        private Guna2Panel panel1;
         private Label label4;
         private Label label5;
+        private Guna2TextBox txtUsername;
     }
 }

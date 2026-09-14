@@ -71,7 +71,7 @@ namespace NorthstarCollection_portal
                 {
                     conn.Open();
 
-                    // 1. Users Table
+                   
                     string usersTable = @"
                     CREATE TABLE IF NOT EXISTS tbl_Users (
                         UserID SERIAL PRIMARY KEY,
@@ -80,7 +80,7 @@ namespace NorthstarCollection_portal
                         ""UserRole"" TEXT NOT NULL
                     );";
 
-                    // 2. Reservations Table
+                    
                     string reservationsTable = @"
                     CREATE TABLE IF NOT EXISTS tbl_Reservations (
                         ReservationID SERIAL PRIMARY KEY,
@@ -94,7 +94,7 @@ namespace NorthstarCollection_portal
                         TotalCost NUMERIC(10,2)
                     );";
 
-                    // 3. Fleet Table (Matching your Screenshot)
+                    
                     string fleetTable = @"
                     CREATE TABLE IF NOT EXISTS tbl_fleet (
                         ""CarID"" SERIAL PRIMARY KEY,
@@ -110,7 +110,7 @@ namespace NorthstarCollection_portal
                     using (NpgsqlCommand cmd = new NpgsqlCommand(reservationsTable, conn)) cmd.ExecuteNonQuery();
                     using (NpgsqlCommand cmd = new NpgsqlCommand(fleetTable, conn)) cmd.ExecuteNonQuery();
 
-                    // Seed Users
+                   
                     string seedUsers = @"
                     INSERT INTO tbl_Users (Username, Password, ""UserRole"") VALUES 
                     ('admin', 'admin123', 'Admin'),
@@ -118,7 +118,7 @@ namespace NorthstarCollection_portal
                     ('sales1', 'sales123', 'Sales')
                     ON CONFLICT (Username) DO NOTHING;";
 
-                    // Seed Fleet (Example from screenshot)
+                    
                     string seedFleet = @"
                     INSERT INTO tbl_fleet (""Brand"", ""Model"", ""DailyRate"", ""Status"", ""UniqueToken"", ""IsActive"") VALUES 
                     ('Aston Martin', 'Vantage', 2800.00, 'Available', 'MN-VANTG', 1),

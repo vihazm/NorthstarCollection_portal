@@ -36,25 +36,25 @@ namespace NorthstarCollection_portal
                 int month = cmbSelectMonth.SelectedIndex + 1;
                 if (!int.TryParse(cmbSelectYear.Text, out int year)) return;
 
-                // --- 1. TOTAL REVENUE ---
+                
                 string revQ = @"SELECT SUM(""totalcost"") FROM tbl_Reservations 
                         WHERE EXTRACT(MONTH FROM ""startdate"") = @month 
                         AND EXTRACT(YEAR FROM ""startdate"") = @year";
 
-                // Create fresh parameters for this specific call
+                
                 NpgsqlParameter[] revParams = {
-            new NpgsqlParameter("@month", month),
-            new NpgsqlParameter("@year", year)
-        };
+                    new NpgsqlParameter("@month", month),
+                    new NpgsqlParameter("@year", year)
+                };
                 DataTable dtRev = DatabaseHelper.ExecuteQuery(revQ, revParams);
                 decimal totalRev = (dtRev.Rows.Count > 0 && dtRev.Rows[0][0] != DBNull.Value)
                                    ? Convert.ToDecimal(dtRev.Rows[0][0]) : 0;
                 lblTotalRevenue.Text = totalRev.ToString("C");
 
-                // --- 2. FLEET OCCUPATION ---
+                
                 string totQ = @"SELECT COUNT(*) FROM tbl_fleet WHERE ""IsActive"" = 1";
 
-                // Parameter for the rental count query
+                
                 NpgsqlParameter[] occParams = {
             new NpgsqlParameter("@month", month),
             new NpgsqlParameter("@year", year)
@@ -67,7 +67,7 @@ namespace NorthstarCollection_portal
                 double rentedCars = Convert.ToDouble(DatabaseHelper.ExecuteQuery(rentQ, occParams).Rows[0][0]);
                 lblFleetOccupation.Text = (totalCars > 0 ? (rentedCars / totalCars) * 100 : 0).ToString("0") + "%";
 
-                // --- 3. NEW CUSTOMERS GAINED ---
+               
                 string custQ = @"SELECT COUNT(DISTINCT ""customername"") FROM tbl_Reservations 
                          WHERE EXTRACT(MONTH FROM ""startdate"") = @month 
                          AND EXTRACT(YEAR FROM ""startdate"") = @year
@@ -76,14 +76,14 @@ namespace NorthstarCollection_portal
                              WHERE ""startdate"" < CAST(@year || '-' || @month || '-01' AS DATE)
                          )";
 
-                // Fresh parameters for the customer query
+                
                 NpgsqlParameter[] custParams = {
             new NpgsqlParameter("@month", month),
             new NpgsqlParameter("@year", year)
         };
                 lblNewCustomers.Text = DatabaseHelper.ExecuteQuery(custQ, custParams).Rows[0][0].ToString();
 
-                // --- 4. MOST POPULAR CAR ---
+                
                 string popQ = @"SELECT f.""UniqueToken"", COUNT(r.""reservationid"") as BookingCount 
                         FROM tbl_Reservations r
                         JOIN tbl_fleet f ON r.""carid""::text = f.""CarID""::text
@@ -93,7 +93,7 @@ namespace NorthstarCollection_portal
                         ORDER BY BookingCount DESC, f.""DailyRate"" DESC 
                         LIMIT 1";
 
-                // Fresh parameters for the popular car query
+                
                 NpgsqlParameter[] popParams = {
             new NpgsqlParameter("@month", month),
             new NpgsqlParameter("@year", year)
@@ -119,13 +119,13 @@ namespace NorthstarCollection_portal
             {
                 string folderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CarImages");
 
-                // Define potential paths for both jpg and png
+                
                 string jpgPath = System.IO.Path.Combine(folderPath, token + ".jpg");
                 string pngPath = System.IO.Path.Combine(folderPath, token + ".png");
 
                 string finalPath = null;
 
-                // Check which file exists
+                
                 if (System.IO.File.Exists(jpgPath))
                 {
                     finalPath = jpgPath;
@@ -146,7 +146,7 @@ namespace NorthstarCollection_portal
                 }
                 else
                 {
-                    pbCarImage.Image = null; // No image found for this token
+                    pbCarImage.Image = null;
                 }
             }
             catch

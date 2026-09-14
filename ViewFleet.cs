@@ -3,7 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Npgsql; // Changed to Npgsql for PostgreSQL support
+using Npgsql; 
 
 namespace NorthstarCollection_portal
 {
@@ -14,7 +14,7 @@ namespace NorthstarCollection_portal
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            // Hide labels initially until a row is clicked
+           
             label2.Visible = false;
             label3.Visible = false;
             label4.Visible = false;
@@ -31,7 +31,7 @@ namespace NorthstarCollection_portal
         {
             try
             {
-                // Updated query: Changed CURDATE() to CURRENT_DATE and added double quotes for PostgreSQL case-sensitivity
+               
                 string query = @"
                 SELECT f.""CarID"", f.""Brand"", f.""Model"", f.""DailyRate"", 
                 CASE 
@@ -49,19 +49,19 @@ namespace NorthstarCollection_portal
                 WHERE f.""IsActive"" = 1 
                 AND f.""Status"" != 'Unavailable'";
 
-                // DatabaseHelper now returns the DataTable using Npgsql
+               
                 DataTable dt = DatabaseHelper.ExecuteQuery(query);
                 dgvFleet.DataSource = dt;
 
                 if (dgvFleet.Columns["CarID"] != null) dgvFleet.Columns["CarID"].Visible = false;
 
-                // 1. Disable the default Windows visual style to allow custom fonts
+               
                 dgvFleet.EnableHeadersVisualStyles = false;
 
-                // 2. Set the header font to Bold
+               
                 dgvFleet.ColumnHeadersDefaultCellStyle.Font = new Font(dgvFleet.Font, FontStyle.Bold);
 
-                // 3. Optional: Set a clean background/foreground for the bold headers to make them readable
+                
                 dgvFleet.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
                 dgvFleet.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
 
@@ -77,7 +77,7 @@ namespace NorthstarCollection_portal
         {
             if (e.RowIndex >= 0)
             {
-                // Make labels visible when a row is clicked
+                
                 label2.Visible = true;
                 label3.Visible = true;
                 label4.Visible = true;
@@ -86,7 +86,7 @@ namespace NorthstarCollection_portal
 
                 DataGridViewRow row = dgvFleet.Rows[e.RowIndex];
 
-                // Labels update based on PostgreSQL returned columns
+                
                 lblNameValue.Text = row.Cells["Model"].Value.ToString();
                 lblBrandValue.Text = row.Cells["Brand"].Value.ToString();
                 lblRateValue.Text = "$" + row.Cells["DailyRate"].Value.ToString();
@@ -98,7 +98,7 @@ namespace NorthstarCollection_portal
             }
         }
 
-        // LoadCarImage logic remains exactly as you designed it to handle naming variations
+        
         private void LoadCarImage(string token)
         {
             try

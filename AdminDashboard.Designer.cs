@@ -233,6 +233,7 @@
             Name = "AdminDashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "-";
+            Load += AdminDashboard_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();

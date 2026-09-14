@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing; // Added for Color support
+using System.Drawing; 
 using System.Windows.Forms;
 using Npgsql;
 
@@ -9,7 +9,7 @@ namespace NorthstarCollection_portal
 {
     public partial class ViewReservations : Form
     {
-        // Internal variable now updated from the database
+        
         private decimal currentMonthlyGoal;
 
         public ViewReservations()
@@ -17,7 +17,7 @@ namespace NorthstarCollection_portal
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            // Initial UI State
+            
             txtAmount.Visible = false;
             btnSet.Visible = false;
             label6.Visible = false;
@@ -28,7 +28,7 @@ namespace NorthstarCollection_portal
             cmbYear.Items.AddRange(new string[] { "", "2024", "2025", "2026" });
             cmbMonth.Items.AddRange(new string[] { "", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
 
-            LoadSalesGoalFromDB(); // Fetch the permanent goal
+            LoadSalesGoalFromDB(); 
             LoadAllReservations();
             LoadMonthlySalesStats();
         }
@@ -37,14 +37,14 @@ namespace NorthstarCollection_portal
         {
             try
             {
-                // Retrieve the stored goal from your new settings table
+                
                 string query = "SELECT setting_value FROM tbl_Settings WHERE setting_name = 'MonthlySalesGoal'";
                 DataTable dt = DatabaseHelper.ExecuteQuery(query);
 
                 if (dt.Rows.Count > 0)
                     currentMonthlyGoal = Convert.ToDecimal(dt.Rows[0][0]);
                 else
-                    currentMonthlyGoal = 10000; // Fallback if record is missing
+                    currentMonthlyGoal = 10000; 
             }
             catch { currentMonthlyGoal = 10000; }
         }
@@ -59,13 +59,13 @@ namespace NorthstarCollection_portal
 
             dgvReservations.DataSource = DatabaseHelper.ExecuteQuery(query);
 
-            // 1. Disable the default Windows visual style to allow custom fonts
+            
             dgvReservations.EnableHeadersVisualStyles = false;
 
-            // 2. Set the header font to Bold
+           
             dgvReservations.ColumnHeadersDefaultCellStyle.Font = new Font(dgvReservations.Font, FontStyle.Bold);
 
-            // 3. Optional: Set a clean background/foreground for the bold headers to make them readable
+            
             dgvReservations.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvReservations.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
 
@@ -90,11 +90,11 @@ namespace NorthstarCollection_portal
                 object result = DatabaseHelper.ExecuteQuery(salesQ, param).Rows[0][0];
                 decimal currentSales = (result != DBNull.Value) ? Convert.ToDecimal(result) : 0;
 
-                // Update Labels
+                
                 lblSalesGoal.Text = currentMonthlyGoal.ToString("C");
                 lblCurrentSales.Text = currentSales.ToString("C");
 
-                // Sales Comment Logic
+                
                 if (currentSales >= currentMonthlyGoal)
                 {
                     decimal surplus = currentSales - currentMonthlyGoal;

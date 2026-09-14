@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using Npgsql; // Use Npgsql for PostgreSQL parameters
+using Npgsql; 
 
 namespace NorthstarCollection_portal
 {
@@ -60,7 +60,7 @@ namespace NorthstarCollection_portal
 
                         decimal subtotal = dailyRate * totalDays;
 
-                        // --- UPDATED: Sri Lankan 18% VAT Policy ---
+                        //Sri Lankan 18% VAT Policy
                         decimal tax = subtotal * 0.18m;
                         decimal grandTotal = subtotal + tax;
 
@@ -68,7 +68,7 @@ namespace NorthstarCollection_portal
                         lblTotalDays.Text = totalDays.ToString();
                         lblSubtotal.Text = subtotal.ToString("C");
 
-                        // Output the tax to your new label
+                        
                         lblVAT.Text = tax.ToString("C");
 
                         lblGrandTotal.Text = grandTotal.ToString("C");
@@ -100,7 +100,7 @@ namespace NorthstarCollection_portal
                 int carId = Convert.ToInt32(cmbCar.SelectedValue);
                 decimal total = decimal.Parse(lblGrandTotal.Text, System.Globalization.NumberStyles.Currency);
 
-                // Deposit is set to 0 as the field is now repurposed for VAT display
+                
                 decimal deposit = 0;
 
                 string insertQuery = @"INSERT INTO tbl_Reservations 
@@ -148,7 +148,7 @@ namespace NorthstarCollection_portal
             lblDailyRate.Text = "$0.00";
             lblTotalDays.Text = "0";
             lblSubtotal.Text = "$0.00";
-            lblVAT.Text = "$0.00"; // Reset VAT display
+            lblVAT.Text = "$0.00"; 
             lblGrandTotal.Text = "$0.00";
         }
 

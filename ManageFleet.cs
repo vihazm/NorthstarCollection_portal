@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Npgsql; // Added for PostgreSQL parameters
+using Npgsql;
 
 namespace NorthstarCollection_portal
 {
@@ -31,7 +31,7 @@ namespace NorthstarCollection_portal
             {
                 dgvCarDetails.DataSource = null;
 
-                // PostgreSQL: Double quotes for PascalCase columns
+                
                 string query = @"SELECT ""CarID"", ""Brand"", ""Model"", ""DailyRate"", ""Status"", ""UniqueToken"" FROM tbl_fleet";
                 DataTable dt = DatabaseHelper.ExecuteQuery(query);
 
@@ -39,13 +39,13 @@ namespace NorthstarCollection_portal
 
                 if (dgvCarDetails.Columns["CarID"] != null) dgvCarDetails.Columns["CarID"].Visible = false;
 
-                // 1. Disable the default Windows visual style to allow custom fonts
+                
                 dgvCarDetails.EnableHeadersVisualStyles = false;
 
-                // 2. Set the header font to Bold
+                
                 dgvCarDetails.ColumnHeadersDefaultCellStyle.Font = new Font(dgvCarDetails.Font, FontStyle.Bold);
 
-                // 3. Optional: Set a clean background/foreground for the bold headers to make them readable
+                
                 dgvCarDetails.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
                 dgvCarDetails.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
 
@@ -118,7 +118,7 @@ namespace NorthstarCollection_portal
                     return;
                 }
 
-                // Use Parameters to handle special characters and data types
+                
                 string query = @"INSERT INTO tbl_fleet (""Brand"", ""Model"", ""DailyRate"", ""UniqueToken"", ""Status"", ""IsActive"") 
                                  VALUES (@brand, @model, @rate, @token, 'Available', 1)";
 
@@ -131,7 +131,7 @@ namespace NorthstarCollection_portal
 
                 DatabaseHelper.ExecuteNonQuery(query, parameters);
 
-                // Image Handling logic (essence maintained)
+                
                 string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CarImages");
                 if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
@@ -188,12 +188,13 @@ namespace NorthstarCollection_portal
                 string newStatus = cmbUpdateStatus.SelectedItem?.ToString() ?? cmbUpdateStatus.Text.Trim();
 
                 if (string.IsNullOrEmpty(newStatus))
+
                 {
                     MessageBox.Show("Please select a status.");
                     return;
                 }
 
-                // Update using Parameters for PostgreSQL safety
+                
                 string updateQuery = @"UPDATE tbl_fleet SET 
                                       ""DailyRate"" = @rate, 
                                       ""Status"" = @status, 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO; // Required for .txt file handling
+using System.IO; // .txt file handling library component
 using System.Windows.Forms;
 using Npgsql;
 
@@ -26,26 +26,26 @@ namespace NorthstarCollection_portal
 
         private void LoadUsers()
         {
-            // Added "password" to the query so it appears in your grid
+            
             string query = "SELECT userid, username, password, \"UserRole\" FROM tbl_users ORDER BY userid ASC";
 
             dgvUsers.DataSource = DatabaseHelper.ExecuteQuery(query);
 
-            // 1. Disable the default Windows visual style to allow custom fonts
+            
             dgvUsers.EnableHeadersVisualStyles = false;
 
-            // 2. Set the header font to Bold
+            
             dgvUsers.ColumnHeadersDefaultCellStyle.Font = new Font(dgvUsers.Font, FontStyle.Bold);
 
-            // 3. Optional: Set a clean background/foreground for the bold headers to make them readable
+            
             dgvUsers.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvUsers.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
 
-            // This makes the columns stretch to fit the gray box in your UI
+           
             dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // --- ADD SECTION ---
+        //add user
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtAUser.Text) || string.IsNullOrWhiteSpace(txtAPass.Text) || cmbARole.SelectedIndex == -1)
@@ -66,19 +66,19 @@ namespace NorthstarCollection_portal
             LoadUsers();
         }
 
-        // --- EDIT SECTION ---
+        //update user 
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 selectedUserIdFromGrid = Convert.ToInt32(dgvUsers.Rows[e.RowIndex].Cells["userid"].Value);
-                // Hint: Admin knows they can now type in txtEPass and click Update
+                
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            // Now uses txtEUid as specified
+            
             if (int.TryParse(txtEUid.Text, out int uid) && !string.IsNullOrWhiteSpace(txtEPass.Text))
             {
                 try
@@ -93,7 +93,7 @@ namespace NorthstarCollection_portal
 
                     MessageBox.Show($"Password updated for User ID {uid}!", "Success");
 
-                    // Clear fields and refresh the grid to show changes
+                    // Clear fields 
                     txtEPass.Clear();
                     txtEUid.Clear();
                     LoadUsers();
@@ -108,8 +108,8 @@ namespace NorthstarCollection_portal
                 MessageBox.Show("Please enter a valid User ID and a new password.");
             }
         }
-
-        // --- DELETE SECTION ---
+         
+        //delete user
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (int.TryParse(txtDUid.Text, out int id))
@@ -122,7 +122,7 @@ namespace NorthstarCollection_portal
             }
         }
 
-        // --- FILE HANDLING (DOWNLOAD LOG) ---
+        //file handling
         private void btnUserLog_Click(object sender, EventArgs e)
         {
             try

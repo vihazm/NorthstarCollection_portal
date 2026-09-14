@@ -255,7 +255,6 @@
         private Panel panel1;
         private PictureBox pictureBox5;
         private PictureBox pictureBox3;
-        private PictureBox pictureBox1;
         private Button btnManageFleet;
         private Button btnViewStats;
         private Button btnViewReservations;
