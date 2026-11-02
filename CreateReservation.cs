@@ -98,9 +98,25 @@ namespace NorthstarCollection_portal
             try
             {
                 int carId = Convert.ToInt32(cmbCar.SelectedValue);
+
+                //prevent double-booking the same car for an overlapping date range
+                string overlapQuery = @"SELECT COUNT(*) FROM tbl_Reservations
+                                        WHERE CarID = @carId AND StartDate <= @end AND EndDate >= @start";
+                NpgsqlParameter[] overlapParams = {
+                    new NpgsqlParameter("@carId", carId),
+                    new NpgsqlParameter("@start", dtpStart.Value.Date),
+                    new NpgsqlParameter("@end", dtpEnd.Value.Date)
+                };
+                int overlapCount = Convert.ToInt32(DatabaseHelper.ExecuteQuery(overlapQuery, overlapParams).Rows[0][0]);
+                if (overlapCount > 0)
+                {
+                    MessageBox.Show("This car is already reserved for an overlapping date range.", "Booking Conflict");
+                    return;
+                }
+
                 decimal total = decimal.Parse(lblGrandTotal.Text, System.Globalization.NumberStyles.Currency);
 
-                
+
                 decimal deposit = 0;
 
                 string insertQuery = @"INSERT INTO tbl_Reservations 

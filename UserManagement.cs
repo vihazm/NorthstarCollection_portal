@@ -57,7 +57,7 @@ namespace NorthstarCollection_portal
             string query = "INSERT INTO tbl_users (username, password, \"UserRole\") VALUES (@u, @p, @r)";
             NpgsqlParameter[] p = {
                 new NpgsqlParameter("@u", txtAUser.Text.Trim()),
-                new NpgsqlParameter("@p", txtAPass.Text),
+                new NpgsqlParameter("@p", DatabaseHelper.HashPassword(txtAPass.Text)),
                 new NpgsqlParameter("@r", cmbARole.Text)
             };
 
@@ -85,7 +85,7 @@ namespace NorthstarCollection_portal
                 {
                     string query = "UPDATE tbl_users SET password = @p WHERE userid = @id";
                     NpgsqlParameter[] p = {
-                new NpgsqlParameter("@p", txtEPass.Text),
+                new NpgsqlParameter("@p", DatabaseHelper.HashPassword(txtEPass.Text)),
                 new NpgsqlParameter("@id", uid)
             };
 

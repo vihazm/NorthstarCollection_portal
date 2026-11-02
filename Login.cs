@@ -29,17 +29,18 @@ namespace NorthstarCollection_portal
 
             try
             {
-                
-                string query = "SELECT \"UserRole\" FROM tbl_users WHERE \"username\" = @user AND \"password\" = @pass";
+
+                string query = "SELECT \"UserRole\", \"password\" FROM tbl_users WHERE \"username\" = @user";
 
                 NpgsqlParameter[] parameters = {
-                    new NpgsqlParameter("@user", user),
-                    new NpgsqlParameter("@pass", pass)
+                    new NpgsqlParameter("@user", user)
                 };
 
                 DataTable result = DatabaseHelper.ExecuteQuery(query, parameters);
-                
-                if (result.Rows.Count > 0)
+
+                string hashedPass = DatabaseHelper.HashPassword(pass);
+
+                if (result.Rows.Count > 0 && hashedPass == result.Rows[0]["password"].ToString())
                 {
                     string role = result.Rows[0]["UserRole"].ToString();
 
